@@ -1,7 +1,5 @@
 import json
-import os
 import re
-
 
 from utils.aws import read_file_from_s3, write_file_to_s3, file_exists_in_s3
 
