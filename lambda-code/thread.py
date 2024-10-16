@@ -12,7 +12,7 @@ class Thread:
         "tool": "\033[1;32m"
     }
 
-    def __init__(self, client, bucket, thread_id, tools=None, messages=None, tool_calls=None, is_active=True, model="gpt-4o"):
+    def __init__(self, client, bucket, thread_id, tools=None, messages=None, tool_calls=None, is_active=True, model="gpt-4o", **kwargs):
         self.client = client
         self.bucket = bucket
         self.thread_id = thread_id
@@ -20,7 +20,6 @@ class Thread:
         self.tool_calls = {}
         self.is_active = is_active
         self.model = model
-
 
         if messages is not None:
             self.messages = messages
@@ -135,9 +134,9 @@ class Thread:
     
 
     @classmethod
-    def from_json(cls, client, json_str, tools=None):
+    def from_json(cls, client, bucket, thread_id, json_str, tools=None):
         data = json.loads(json_str)
-        return cls(client, tools=tools, **data)
+        return cls(client, bucket, thread_id, tools=tools, **data)
     
 
     def save(self):
@@ -149,7 +148,7 @@ class Thread:
     def load(cls, client, bucket, thread_id, tools=None):
         key = f"threads/{thread_id}.json"
         json_str = read_file_from_s3(bucket, key)
-        return cls.from_json(client, json_str, tools=tools)
+        return cls.from_json(client, bucket, thread_id, json_str, tools=tools)
 
 
     @classmethod
