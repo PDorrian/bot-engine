@@ -134,9 +134,9 @@ class Thread:
     
 
     @classmethod
-    def from_json(cls, client, bucket, thread_id, json_str, tools=None):
+    def from_json(cls, client, bucket, json_str, tools=None):
         data = json.loads(json_str)
-        return cls(client, bucket, thread_id, tools=tools, **data)
+        return cls(client, bucket, tools=tools, **data)
     
 
     def save(self):
@@ -148,7 +148,7 @@ class Thread:
     def load(cls, client, bucket, thread_id, tools=None):
         key = f"threads/{thread_id}.json"
         json_str = read_file_from_s3(bucket, key)
-        return cls.from_json(client, bucket, thread_id, json_str, tools=tools)
+        return cls.from_json(client, bucket, json_str, tools=tools)
 
 
     @classmethod
