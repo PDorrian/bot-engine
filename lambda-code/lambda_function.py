@@ -5,7 +5,7 @@ from openai import OpenAI
 from thread import Thread
 from utils.aws import read_file_from_s3
 
-from tools.send_slack_message import send_slack_message
+from tools.send_notification import send_notification
 from tools.do_not_reply import do_not_reply
 from tools.update_recipient import update_recipient
 
@@ -18,7 +18,7 @@ def lambda_handler(event, _):
     response = event
     
     tools = {
-        'send_slack_message': send_slack_message,
+        'send_notification': send_notification,
         'do_not_reply': do_not_reply,
         'update_recipient': update_recipient
     }
