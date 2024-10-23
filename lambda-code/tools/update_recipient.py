@@ -4,8 +4,8 @@ import lambda_function
 class update_recipient:
     @staticmethod
     def run(instance, new_recipient):
+        print('update_recipient triggered', new_recipient)
         lambda_function.response['email_address'] = new_recipient
-        return f'Sending email to {new_recipient}'
 
     description = {
         "type": "function",

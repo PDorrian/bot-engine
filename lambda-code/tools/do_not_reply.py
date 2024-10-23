@@ -4,6 +4,7 @@ import lambda_function
 class do_not_reply:
     @staticmethod
     def run(instance):
+        print('do_not_reply triggered')
         lambda_function.response['do_reply'] = False
 
     description = {
