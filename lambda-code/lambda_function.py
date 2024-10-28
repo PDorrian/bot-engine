@@ -8,6 +8,7 @@ from utils.aws import read_file_from_s3
 from tools.send_notification import send_notification
 from tools.do_not_reply import do_not_reply
 from tools.update_recipient import update_recipient
+from tools.send_invoice import send_invoice
 
 
 client = OpenAI(api_key=os.environ.get('OPENAI_KEY'))
@@ -19,6 +20,7 @@ def lambda_handler(event, _):
     
     tools = {
         'send_notification': send_notification,
+        'send_invoice': send_invoice,
         'do_not_reply': do_not_reply,
         'update_recipient': update_recipient
     }
