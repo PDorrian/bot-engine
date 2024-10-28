@@ -48,6 +48,5 @@ def lambda_handler(event, _):
 
     response['message'] = outgoing_message
     response['do_reply'] = response.get('do_reply', thread.is_active)
-    response['notification_message'] = response.get('notification_message')
 
     return response
