@@ -117,8 +117,10 @@ class Thread:
             completion = self.get_response()
 
         template_pattern = r'\[.*?\]'
-        if re.search(template_pattern, completion.message.content):
-            completion = self.get_response(extra_messages=[completion.message.to_dict(), {"role": "system", "content": "REJECTED: Placeholder detected in response. Rewrite your message without any placeholders, but do not invent any information."}])
+        placeholder_present = re.search(template_pattern, completion.message.content)
+        while placeholder_present:
+            completion = self.get_response(extra_messages=[completion.message.to_dict(), {"role": "system", "content": f"REJECTED: Placeholder detected in response: {placeholder_present}. Rewrite your message without any placeholders, but do not invent any information."}])
+            placeholder_present = re.search(template_pattern, completion.message.content)
 
         self.add_message(completion.message.to_dict())
 
