@@ -40,7 +40,7 @@ def lambda_handler(event, _):
         thread = Thread.load(client, bucket, thread_id, tools=tools)
     
     if incoming_message is not None:
-        thread.add_message({"role": role, "content": incoming_message})
+        thread.add_message({"role": role, "content": incoming_message, "name": event.get('from_name')})
     
     outgoing_message = thread.run()
     if thread_id is not None and event.get('save_thread', True):

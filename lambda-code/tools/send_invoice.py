@@ -44,7 +44,7 @@ class send_invoice:
                     },
                     "product": {
                         "type": "string",
-                        "description": "The product to invoice (e.g. 'Guest Post')"
+                        "description": "The product to invoice (e.g. 'Guest Post') or whatever the client requests"
                     },
                     "quantity": {
                         "type": "number",
