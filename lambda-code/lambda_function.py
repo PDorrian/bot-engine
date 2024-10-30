@@ -24,7 +24,7 @@ def lambda_handler(event, _):
         'do_not_reply': do_not_reply,
         'update_recipient': update_recipient
     }
-    selected_tools = event.get('tools')
+    selected_tools = event.get('tools', [])
     tools = {key:val for key,val in tools.items() if key in selected_tools}
 
     bucket = event['bucket']
@@ -40,7 +40,11 @@ def lambda_handler(event, _):
         thread = Thread.load(client, bucket, thread_id, tools=tools)
     
     if incoming_message is not None:
-        thread.add_message({"role": role, "content": incoming_message, "name": event.get('from_name')})
+        name = event.get('from_name')
+        if name is not None:
+            name = name.replace(' ', '_')
+            name = ''.join(c for c in name if c.isalpha() or c.isdigit() or c=='_')
+        thread.add_message({"role": role, "content": incoming_message, "name": name})
     
     outgoing_message = thread.run()
     if thread_id is not None and event.get('save_thread', True):
