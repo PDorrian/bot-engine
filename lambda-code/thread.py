@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import datetime
 
 from utils.aws import read_file_from_s3, write_file_to_s3, file_exists_in_s3
 
@@ -33,6 +34,8 @@ class Thread:
     
 
     def add_message(self, message, print_message=True):
+        message['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
         self.messages.append(message)
 
         if message['content'] is not None and print_message:
