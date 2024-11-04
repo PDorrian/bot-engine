@@ -25,7 +25,7 @@ def lambda_handler(event, _):
         'update_recipient': update_recipient
     }
     selected_tools = event.get('tools', [])
-    tools = {key:val for key,val in tools.items() if key in selected_tools}
+    tools = {key:val for key,val in tools.items() if key in selected_tools} or None
 
     bucket = event['bucket']
     incoming_message = event.get('message')

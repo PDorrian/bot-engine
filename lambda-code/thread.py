@@ -88,7 +88,7 @@ class Thread:
             return self.client.chat.completions.create(
                 model = self.model,
                 messages = self.messages+extra_messages,
-                tools = [tool.description for tool in self.tools.values()] or None,
+                tools = [tool.description for tool in self.tools.values()],
                 tool_choice = "auto"
             ).choices[0]
 
