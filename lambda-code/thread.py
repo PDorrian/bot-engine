@@ -35,7 +35,6 @@ class Thread:
 
     def add_message(self, message, print_message=True):
         message['timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
         self.messages.append(message)
 
         if message['content'] is not None and print_message:

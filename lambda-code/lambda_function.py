@@ -24,7 +24,7 @@ def lambda_handler(event, _):
         'do_not_reply': do_not_reply,
         'update_recipient': update_recipient
     }
-    selected_tools = event.get('tools', [])
+    selected_tools = event.get('tools')
     tools = {key:val for key,val in tools.items() if key in selected_tools}
 
     bucket = event['bucket']
