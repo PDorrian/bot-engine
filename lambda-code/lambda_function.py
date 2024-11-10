@@ -24,12 +24,10 @@ def lambda_handler(event, _):
         'do_not_reply': do_not_reply,
         'update_recipient': update_recipient
     }
+    
     selected_tools = event.get('tools', [])
     tools = {key:val for key,val in tools.items() if key in selected_tools} or None
-
     bucket = event['bucket']
-    incoming_message = event.get('message')
-    role = event.get('role', 'user')
     thread_id = event.get('thread_id')
 
     if thread_id is None or not Thread.exists(bucket, thread_id):
@@ -39,18 +37,14 @@ def lambda_handler(event, _):
     else:
         thread = Thread.load(client, bucket, thread_id, tools=tools)
     
-    if incoming_message is not None:
-        name = event.get('from_name')
-        if name is not None:
-            name = name.replace(' ', '_')
-            name = ''.join(c for c in name if c.isalpha() or c.isdigit() or c=='_')
-        thread.add_message({"role": role, "content": incoming_message, "name": name})
+    if event.get('content') is not None:
+        thread.add_message(event)
     
     outgoing_message = thread.run()
     if thread_id is not None and event.get('save_thread', True):
         thread.save()
 
-    response['message'] = outgoing_message
+    response['response'] = outgoing_message
     response['do_reply'] = response.get('do_reply', thread.is_active)
 
     return response
