@@ -5,6 +5,7 @@ class send_to_do_not_contact:
     @staticmethod
     def run(instance):
         lambda_function.response['do_not_contact'] = True
+        instance.is_active = False
 
     description = {
         "type": "function",
