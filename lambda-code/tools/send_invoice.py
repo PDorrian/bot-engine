@@ -8,7 +8,7 @@ class send_invoice:
 
         payload = {
             "Company Name": company_name,
-            "Email Address": email_address,
+            "Email Address": lambda_function.response['email_address'],
             "Country": country,
             "Product": product,
             "Quantity": quantity,
