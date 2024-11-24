@@ -45,10 +45,10 @@ def lambda_handler(event, _):
         thread.add_message(event)
     
     outgoing_message = thread.run()
-    if thread_id is not None and event.get('save_thread', True):
-        thread.save()
-
     response['response'] = outgoing_message
     response['do_reply'] = response.get('do_reply', thread.is_active)
+
+    if thread_id is not None and response.get('save', True) and response['do_reply']:
+        thread.save()
 
     return response
