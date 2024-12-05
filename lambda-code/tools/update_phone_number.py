@@ -14,7 +14,7 @@ class update_phone_number:
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "new_recipient": {
+                    "phone_number": {
                         "type": "string",
                         "description": "The phone number of the user."
                     }
