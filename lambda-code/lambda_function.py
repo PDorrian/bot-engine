@@ -11,6 +11,7 @@ from tools.update_recipient import update_recipient
 from tools.send_invoice import send_invoice
 from tools.send_to_do_not_contact import send_to_do_not_contact
 from tools.send_to_leadbyte import send_to_leadbyte
+from tools.update_phone_number import update_phone_number
 
 
 client = OpenAI(api_key=os.environ.get('OPENAI_KEY'))
@@ -26,7 +27,8 @@ def lambda_handler(event, _):
         'do_not_reply': do_not_reply,
         'update_recipient': update_recipient,
         'send_to_do_not_contact': send_to_do_not_contact,
-        'send_to_leadbyte': send_to_leadbyte
+        'send_to_leadbyte': send_to_leadbyte,
+        'update_phone_number': update_phone_number
     }
     
     selected_tools = event.get('tools', [])
